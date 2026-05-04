@@ -1,4 +1,4 @@
-# Welcome to PLATO's certinia-playwright repository
+# Welcome to a playwright demonstration repository
 
 ## workstation setup
 ### install nodeJS
