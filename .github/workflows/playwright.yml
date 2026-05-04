@@ -1,0 +1,32 @@
+name: Playwright Tests
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 22.11.0
+    - name: clean install of dependencies
+      run: npm ci
+    - name: install playwright browsers
+      run: npx playwright install --with-deps
+    - name: type check codebase
+      run: npx tsc --noEmit      
+    - name: run playwright tests
+      env:
+        ADMIN_USER: ${{secrets.ADMIN_USER}}
+        ADMIN_PWD: ${{secrets.ADMIN_PWD}}
+        ZEPHYR_TOKEN: ${{secrets.ZEPHYR_TOKEN}}
+        JIRA_TOKEN: ${{secrets.JIRA_TOKEN}}
+        JIRA_USER: ${{secrets.JIRA_USER}}
+      run: ADMIN_USER="$ADMIN_USER" ADMIN_PWD="$ADMIN_PWD" ZEPHYR_TOKEN="$ZEPHYR_TOKEN" JIRA_TOKEN="$JIRA_TOKEN" JIRA_USER="$JIRA_USER" npx playwright test
+    - uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 30
