@@ -1,5 +1,35 @@
 # Welcome to a playwright demonstration repository
 
+## project structure
+
+```
+<project root>
+|   .env                            //static config goes here
+|   .gitignore                      
+|   .package-lock.json
+|   .package.json
+|   playwright.config.ts            
+|   README.md
+|   tsconfig.json
+|   .github
+    |   workflows
+        |   playwright.yml          
+|   data                            //interfaces defining domain objects in here please
+    |   interfaces.ts
+|   extensions                      //extensions to the playwright framework like custom reporters etc. go in here please
+    |   zephyrreporter.ts
+|   fixtures                        
+    |   endToEnd.ts                 //end to end fixture constructs the browsers for both Manager and Employee roles 
+|   pages                           //page object models in here please
+    |   *.ts
+|   tests                           //tests in here please
+    |   timeentry                   //data driven tests use a sub-folder of the same name as the spec
+        |   *.json                  //each .json is a test case
+    |   timeentry.spec.ts           //data driven test for end to end time card submission
+|   utils
+    |   dateutils.ts
+
+```
 ## workstation setup
 ### install nodeJS
 It is recommended to install Node Version Manager [NVM](https://github.com/coreybutler/nvm-windows/releases) and use it to manage nodejs versions on your workstation. After installing NVM:
